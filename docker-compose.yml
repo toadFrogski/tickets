@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  db:
+    restart: unless-stopped
+    image: mariadb
+    volumes:
+      - ./docker/db:/var/lib/mysql
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
