@@ -47,8 +47,8 @@ create table session(
 
 create table ticket(
     ticket_id int not null AUTO_INCREMENT primary key,
-    row int not null,
-    place int not null,
+    ticket_row int not null,
+    ticket_place int not null,
     session_id int not null,
     foreign key (session_id) references session(session_id)
 );

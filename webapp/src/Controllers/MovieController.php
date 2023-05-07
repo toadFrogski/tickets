@@ -5,11 +5,12 @@ namespace Src\Controllers;
 use Core\HttpFoundation\Request;
 use Core\Template\Template;
 
-class HomeController
+
+class MovieController
 {
 
     public function indexAction(Request $request)
     {
-        return Template::view('home/index.html');
+        return Template::view('movie/index.html');
     }
 }
