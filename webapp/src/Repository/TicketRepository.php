@@ -4,7 +4,7 @@ namespace Src\Repository;
 
 use Core\DBManager\DatabaseManager;
 
-class SessionRepository
+class TicketRepository
 {
     public static function setTicket(int $row, int $place, int $session_id) {
         $dbm = DatabaseManager::getInstance();
