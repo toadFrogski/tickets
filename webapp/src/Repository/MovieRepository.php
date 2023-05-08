@@ -46,9 +46,10 @@ class MovieRepository
     {
         $dbm = DatabaseManager::getInstance();
         $cinema = $dbm->connection->query("
-            SELECT m.*, group_concat(g.genre_name) as genres
+            SELECT m.*, group_concat(g.genre_name) as genres, ma.movie_asset_url
             FROM movie m INNER JOIN movie_genre mg ON mg.movie_id=m.movie_id
             INNER JOIN genre g ON g.genre_id=mg.genre_id
+            INNER JOIN movie_asset ma ON ma.movie_id=m.movie_id
             WHERE m.movie_id='{$id}'
             GROUP BY m.movie_id")
         ->fetch_assoc();
