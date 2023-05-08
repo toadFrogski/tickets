@@ -137,8 +137,8 @@ insert into session(movie_id, cinemahall_id, session_time, session_schema) value
 
 
 insert into movie_asset (movie_id, movie_asset_url) values
-    ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), 'media/FozSgaCaEAIHR6z.jpg'),
-    ((select movie_id from movie where movie_name='The Super Mario Bros. Movie'), 'media/The-Super-Mario-Bros.-Movie-poster.jpg'),
-    ((select movie_id from movie where movie_name='Evil Dead Rise'), 'media/edr.jpg'),
-    ((select movie_id from movie where movie_name='Les trois mousquetaires: D`Artagnan'), 'media/4417568.jpg'),
-    ((select movie_id from movie where movie_name='John Wick: Chapter 4'), 'media/asdasd.jpg')
+    ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), 'media/1/FozSgaCaEAIHR6z.jpg'),
+    ((select movie_id from movie where movie_name='The Super Mario Bros. Movie'), 'media/2/The-Super-Mario-Bros.-Movie-poster.jpg'),
+    ((select movie_id from movie where movie_name='Evil Dead Rise'), 'media/3/edr.jpg'),
+    ((select movie_id from movie where movie_name='Les trois mousquetaires: D`Artagnan'), 'media/4/4417568.jpg'),
+    ((select movie_id from movie where movie_name='John Wick: Chapter 4'), 'media/5/asdasd.jpg')
