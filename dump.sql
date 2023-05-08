@@ -28,6 +28,12 @@ create table movie(
     movie_duration int not null
 );
 
+create table movie_asset(
+    movie_asset_id int not null AUTO_INCREMENT primary key,
+    movie_id int not null,
+    movie_asset_url varchar(255) not null
+);
+
 create table movie_genre(
     movie_genre_id int not null AUTO_INCREMENT primary key,
     movie_id int not null,
@@ -41,6 +47,7 @@ create table session(
     movie_id int not null,
     cinemahall_id int not null,
     session_time datetime not null,
+    session_schema json not null,
     foreign key (cinemahall_id) references cinemahall(cinemahall_id),
     foreign key (movie_id) references movie(movie_id)
 );
@@ -122,8 +129,16 @@ insert into movie_genre(movie_id, genre_id) values
     ((select movie_id from movie where movie_name='John Wick: Chapter 4'), (select genre_id from genre where genre_name='Crime')),
     ((select movie_id from movie where movie_name='John Wick: Chapter 4'), (select genre_id from genre where genre_name='Triller'));
 
-insert into session(movie_id, cinemahall_id, session_time) values
-    ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), (select cinemahall_id from cinemahall limit 1), '2023-07-06 12:00:00'),
-    ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), (select cinemahall_id from cinemahall limit 1), '2023-07-06 15:00:00'),
-    ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), (select cinemahall_id from cinemahall limit 1), '2023-07-06 18:00:00'),
-    ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), (select cinemahall_id from cinemahall limit 1), '2023-07-06 21:00:00');
+insert into session(movie_id, cinemahall_id, session_time, session_schema) values
+    ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), (select cinemahall_id from cinemahall limit 1), '2023-07-06 12:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='1')),
+    ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), (select cinemahall_id from cinemahall limit 1), '2023-07-06 15:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='2')),
+    ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), (select cinemahall_id from cinemahall limit 1), '2023-07-06 18:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='3')),
+    ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), (select cinemahall_id from cinemahall limit 1), '2023-07-06 21:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='1'));
+
+
+insert into movie_asset (movie_id, movie_asset_url) values
+    ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), 'media/FozSgaCaEAIHR6z.jpg'),
+    ((select movie_id from movie where movie_name='The Super Mario Bros. Movie'), 'media/The-Super-Mario-Bros.-Movie-poster.jpg'),
+    ((select movie_id from movie where movie_name='Evil Dead Rise'), 'media/edr.jpg'),
+    ((select movie_id from movie where movie_name='Les trois mousquetaires: D`Artagnan'), 'media/4417568.jpg'),
+    ((select movie_id from movie where movie_name='John Wick: Chapter 4'), 'media/asdasd.jpg')

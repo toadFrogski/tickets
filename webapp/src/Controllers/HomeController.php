@@ -4,6 +4,7 @@ namespace Src\Controllers;
 
 use Core\HttpFoundation\Request;
 use Core\Template\Template;
+use Src\Repository\MovieRepository;
 
 class HomeController
 {
