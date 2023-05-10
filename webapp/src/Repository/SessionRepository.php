@@ -9,7 +9,7 @@ class SessionRepository
     public static function getAllAvaiableMovieSessions(int $mid) {
         $dbm = DatabaseManager::getInstance();
         $all_sessions = $dbm->connection->query("
-            SELECT s.session_id, s.session_time, c.cinema_id
+            SELECT s.session_id, s.session_time, c.cinema_name
             FROM session s
             INNER JOIN movie m ON m.movie_id=s.movie_id
             INNER JOIN cinemahall ch ON ch.cinemahall_id=s.cinemahall_id
