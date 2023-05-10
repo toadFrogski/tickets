@@ -1,0 +1,65 @@
+form {
+    width: 100%;
+}
+
+form h2, h3{
+    color: var(--dark);
+    text-align: center;
+}
+
+.table {
+    padding: 32px;
+}
+.row {
+    align-items: center;
+    justify-content: center;
+    column-gap: 8px;
+    display: flex;
+    flex-direction: row;
+}
+label {
+    display: block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+input[type='checkbox'] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+span {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    height: 48px;
+    width: 48px;
+    background-color: lightgray;
+}
+
+input[type='checkbox']:checked ~ span {
+    background-color: greenyellow;
+}
+
+input[type='checkbox']:disabled ~ span {
+    background-color: red;
+}
+input[type='submit'] {
+    display: block;
+    padding: 16px 32px;
+    font-size: 20px;
+    margin: 0 auto;
+    background-color: var(--darker);
+    font-weight: 700;
+    border-radius: 16px;
+    color: var(--lighter);
+    transition: all .3s ease-in-out;
+}
+input[type='submit']:hover {
+    color: var(--darker);
+    background-color: var(--lighter);
+    box-shadow: 0 3px 5px var(--dark);
+    transition: all .3s ease-in-out;
+}

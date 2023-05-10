@@ -13,7 +13,7 @@ class MovieController
 
     public function indexAction(Request $request)
     {
-        $id = 1;
+        $id = $request->getParameters()['id'];
         return Template::view('movie/index.html', ['movie' => MovieRepository::getMovieById($id), 'sessions' => SessionRepository::getAllAvaiableMovieSessions($id)]);
     }
 }
