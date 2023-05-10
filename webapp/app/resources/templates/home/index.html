@@ -1,8 +1,29 @@
 {% extends 'base.html' %}
+
+{% block title %}
+<title>Фильмы</title>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="../app/resources/assets/css/home.css">
+{% endblock %}
+
 {% block content %}
+    <div class="movie_list">
     {% foreach($movies as $movie): %}
-        {% foreach($movie as $field): %}
-            <p>{{ $field }}</p>
-        {% endforeach; %}
+        <div class="movie_card">
+                <img loading="lazy" class="movie_poster" src="{{ $movie['asset_url'] }}" alt="">
+
+            <a class="movie_link" href="/movie?id={{$movie[0]}}">
+                <div class="details">
+                    <div class="movie_name">{{ $movie['name'] }}</div>
+                    <div class="movie_producer">Режисер: {{ $movie['producer'] }}</div>
+                    <div class="movie_description">{{ $movie['description'] }}</div>
+                    <div class="movie_duration">{{ $movie['duration'] }} минут</div>
+                    <div class="movie_starts">В кино с {{ $movie['date'] }}</div>
+                </div>
+            </a>
+        </div>
     {% endforeach; %}
+    </div>
 {% endblock %}

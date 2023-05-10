@@ -11,7 +11,8 @@ use Src\Repository\TicketRepository;
 class TicketController
 {
     public function indexAction(Request $request) {
-        return Template::view('ticket/index.html');
+        $id = $request->getParameters()['session'];
+        return Template::view('ticket/index.html',  ['session' => SessionRepository::getSessionById($id)]);
     }
 
     public function buyAction(Request $request) {
