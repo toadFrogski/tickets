@@ -63,8 +63,8 @@ create table ticket(
 
 
 insert into cinema(cinema_name, cinema_address) values ('Cineplex Loteanu', 'Bulevardul Ștefan cel Mare și Sfînt 103');
-insert into cinema(cinema_name, cinema_address) values ('Cineplex', 'Arborilor, 21');
 
+insert into cinema(cinema_name, cinema_address) values ('Cineplex', 'Arborilor, 21');
 
 insert into cinemahall(cinemahall_schema, cinemahall_size, cinema_id)
     values('[
@@ -78,6 +78,7 @@ insert into cinemahall(cinemahall_schema, cinemahall_size, cinema_id)
         [true, true, true, true, true, true, true, true],
         [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
     ]', '79', (select cinema_id from cinema where cinema_name='Cineplex Loteanu'));
+
 insert into cinemahall(cinemahall_schema, cinemahall_size, cinema_id)
     values('[
         [true, true, true, true, true, true, true, true, true, true, true, true],
@@ -89,6 +90,7 @@ insert into cinemahall(cinemahall_schema, cinemahall_size, cinema_id)
         [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
         [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
      ]', '86', (select cinema_id from cinema where cinema_name='Cineplex Loteanu'));
+
 insert into cinemahall(cinemahall_schema, cinemahall_size, cinema_id)
     values('[
         [true, true, true, true, true, true, true, true, true, true, true, true],
@@ -101,6 +103,7 @@ insert into cinemahall(cinemahall_schema, cinemahall_size, cinema_id)
 
 insert into cinemahall(cinemahall_schema, cinemahall_size, cinema_id)
     values('[8, 8, 8, 8, 8, 8, 8, 8, 15]', '79', (select cinema_id from cinema where cinema_name='Cineplex'));
+
 insert into cinemahall(cinemahall_schema, cinemahall_size, cinema_id) values('[12, 12, 8, 8, 8, 8, 15, 15]', '86', (select cinema_id from cinema where cinema_name='Cineplex'));
 
 insert into genre(genre_name) values
@@ -112,7 +115,9 @@ insert into movie(movie_name, movie_price, movie_description, movie_producer, mo
     ('The Super Mario Bros. Movie', 110, "The story of The Super Mario Bros. on their journey through the Mushroom Kingdom.", 'Aaron Horvath, Michael Jelenic', '2023-04-05', '90'),
     ('Evil Dead Rise', 120, "A twisted tale of two estranged sisters whose reunion is cut short by the rise of flesh-possessing demons, thrusting them into a primal battle for survival as they face the most nightmarish version of family imaginable.", "Lee Cronin", "2023-03-15", '100'),
     ('Les trois mousquetaires: D`Artagnan', 120, "D'Artagnan arrives in Paris trying to find his attackers after being left for dead, which leads him to a real war where the future of France is at stake. He aligns himself with Athos, Porthos and Aramis, three musketeers of the King.", 'Martin Bourboulon', '2023-04-05', '120'),
-    ('John Wick: Chapter 4', 110, 'John Wick uncovers a path to defeating The High Table. But before he can earn his freedom, Wick must face off against a new enemy with powerful alliances across the globe and forces that turn old friends into foes.', 'Chad Stahelski', '2023-05-13', '170');
+    ('John Wick: Chapter 4', 110, 'John Wick uncovers a path to defeating The High Table. But before he can earn his freedom, Wick must face off against a new enemy with powerful alliances across the globe and forces that turn old friends into foes.', 'Chad Stahelski', '2023-05-13', '170'),
+    ('Everything Everywhere All at Once', 120, 'A middle-aged Chinese immigrant is swept up into an insane adventure in which she alone can save existence by exploring other universes and connecting with the lives she could have led.', 'Daniels', '2022-03-11', '140'),
+    ('Tetris', 100, 'The story of how one of the world`s most popular video games found its way to players around the globe. Businessman Henk Rogers and Tetris inventor Alexey Pajitnov join forces in the USSR, risking it all to bring Tetris to the masses.', 'Matthew Vaughn', '2023-03-31', '120');
 
 insert into movie_genre(movie_id, genre_id) values
     ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), (select genre_id from genre where genre_name='Action')),
@@ -128,7 +133,13 @@ insert into movie_genre(movie_id, genre_id) values
     ((select movie_id from movie where movie_name='Les trois mousquetaires: D`Artagnan'), (select genre_id from genre where genre_name='History')),
     ((select movie_id from movie where movie_name='John Wick: Chapter 4'), (select genre_id from genre where genre_name='Action')),
     ((select movie_id from movie where movie_name='John Wick: Chapter 4'), (select genre_id from genre where genre_name='Crime')),
-    ((select movie_id from movie where movie_name='John Wick: Chapter 4'), (select genre_id from genre where genre_name='Triller'));
+    ((select movie_id from movie where movie_name='John Wick: Chapter 4'), (select genre_id from genre where genre_name='Triller')),
+    ((select movie_id from movie where movie_name='Everything Everywhere All at Once'), (select genre_id from genre where genre_name='Action')),
+    ((select movie_id from movie where movie_name='Everything Everywhere All at Once'), (select genre_id from genre where genre_name='Adventure')),
+    ((select movie_id from movie where movie_name='Everything Everywhere All at Once'), (select genre_id from genre where genre_name='Comedy')),
+    ((select movie_id from movie where movie_name='Tetris'), (select genre_id from genre where genre_name='Drama')),
+    ((select movie_id from movie where movie_name='Tetris'), (select genre_id from genre where genre_name='Documental')),
+    ((select movie_id from movie where movie_name='Tetris'), (select genre_id from genre where genre_name='History'));
 
 insert into session(movie_id, cinemahall_id, session_time, session_schema) values
     ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), (select cinemahall_id from cinemahall limit 1), '2023-07-06 12:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='1')),
@@ -142,23 +153,37 @@ insert into session(movie_id, cinemahall_id, session_time, session_schema) value
     ((select movie_id from movie where movie_name='Evil Dead Rise'), (select cinemahall_id from cinemahall limit 1), '2023-07-08 12:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='3')),
     ((select movie_id from movie where movie_name='Evil Dead Rise'), (select cinemahall_id from cinemahall limit 1), '2023-07-08 15:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='1')),
     ((select movie_id from movie where movie_name='Evil Dead Rise'), (select cinemahall_id from cinemahall limit 1), '2023-07-08 18:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='2')),
-    ((select movie_id from movie where movie_name='Evil Dead Rise'), (select cinemahall_id from cinemahall limit 1), '2023-07-08 21:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='3'));
-
-
-
+    ((select movie_id from movie where movie_name='Evil Dead Rise'), (select cinemahall_id from cinemahall limit 1), '2023-07-08 21:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='3')),
+    ((select movie_id from movie where movie_name='Les trois mousquetaires: D`Artagnan'), (select cinemahall_id from cinemahall limit 1), '2023-07-05 12:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='3')),
+    ((select movie_id from movie where movie_name='Les trois mousquetaires: D`Artagnan'), (select cinemahall_id from cinemahall limit 1), '2023-07-05 15:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='1')),
+    ((select movie_id from movie where movie_name='Les trois mousquetaires: D`Artagnan'), (select cinemahall_id from cinemahall limit 1), '2023-07-05 18:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='2')),
+    ((select movie_id from movie where movie_name='Les trois mousquetaires: D`Artagnan'), (select cinemahall_id from cinemahall limit 1), '2023-07-05 21:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='3')),
+    ((select movie_id from movie where movie_name='John Wick: Chapter 4'), (select cinemahall_id from cinemahall limit 1), '2023-07-09 21:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='1')),
+    ((select movie_id from movie where movie_name='John Wick: Chapter 4'), (select cinemahall_id from cinemahall limit 1), '2023-07-09 21:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='2')),
+    ((select movie_id from movie where movie_name='John Wick: Chapter 4'), (select cinemahall_id from cinemahall limit 1), '2023-07-09 21:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='3')),
+    ((select movie_id from movie where movie_name='Everything Everywhere All at Once'), (select cinemahall_id from cinemahall limit 1), '2023-07-04 21:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='1')),
+    ((select movie_id from movie where movie_name='Everything Everywhere All at Once'), (select cinemahall_id from cinemahall limit 1), '2023-07-04 21:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='2')),
+    ((select movie_id from movie where movie_name='Everything Everywhere All at Once'), (select cinemahall_id from cinemahall limit 1), '2023-07-04 21:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='3')),
+    ((select movie_id from movie where movie_name='Tetris'), (select cinemahall_id from cinemahall limit 1), '2023-07-03 21:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='1')),
+    ((select movie_id from movie where movie_name='Tetris'), (select cinemahall_id from cinemahall limit 1), '2023-07-03 21:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='2')),
+    ((select movie_id from movie where movie_name='Tetris'), (select cinemahall_id from cinemahall limit 1), '2023-07-03 21:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='3'));
 
 insert into movie_asset (movie_id, movie_asset_url, movie_asset_type) values
     ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), 'media/1/FozSgaCaEAIHR6z.jpg', 'poster'),
     ((select movie_id from movie where movie_name='The Super Mario Bros. Movie'), 'media/2/The-Super-Mario-Bros.-Movie-poster.jpg', 'poster'),
     ((select movie_id from movie where movie_name='Evil Dead Rise'), 'media/3/edr.jpg', 'poster'),
     ((select movie_id from movie where movie_name='Les trois mousquetaires: D`Artagnan'), 'media/4/4417568.jpg', 'poster'),
-    ((select movie_id from movie where movie_name='John Wick: Chapter 4'), 'media/5/asdasd.jpg', 'poster');
+    ((select movie_id from movie where movie_name='John Wick: Chapter 4'), 'media/5/asdasd.jpg', 'poster'),
+    ((select movie_id from movie where movie_name='Everything Everywhere All at Once'), 'media/6/eao.jpg', 'poster'),
+    ((select movie_id from movie where movie_name='Tetris'), 'media/7/tetris.jpg', 'poster');
 
 insert into movie_asset (movie_id, movie_asset_url, movie_asset_type) values
     ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), 'u3V5KDHRQvk', 'youtube_trailer'),
     ((select movie_id from movie where movie_name='The Super Mario Bros. Movie'), 'TnGl01FkMMo', 'youtube_trailer'),
     ((select movie_id from movie where movie_name='Evil Dead Rise'), 'BqQNO7BzN08', 'youtube_trailer'),
     ((select movie_id from movie where movie_name='Les trois mousquetaires: D`Artagnan'), 'KqCiVRbwMvQ', 'youtube_trailer'),
-    ((select movie_id from movie where movie_name='John Wick: Chapter 4'), 'yjRHZEUamCc', 'youtube_trailer')
+    ((select movie_id from movie where movie_name='John Wick: Chapter 4'), 'yjRHZEUamCc', 'youtube_trailer'),
+    ((select movie_id from movie where movie_name='Everything Everywhere All at Once'), 'wxN1T1uxQ2g', 'youtube_trailer'),
+    ((select movie_id from movie where movie_name='Tetris'), 'BLM1naCfME', 'youtube_trailer');
 
 
