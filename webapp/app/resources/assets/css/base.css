@@ -32,16 +32,40 @@ header nav ul {
     font-weight: 500;
     display: flex;
     flex-direction: row;
+    column-gap: 16px;
     align-items: center;
 }
-header nav ul > li {
+header nav ul a {
     padding: 8px 24px;
     border-radius: 16px;
     transition: box-shadow .4s ease-in-out;
 }
-header nav ul > li:hover {
+header nav ul a:hover {
     box-shadow: 0 4px 10px -4px var(--light);
     transition: box-shadow .4s ease-in-out;
+}
+.search {
+    width: 200px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px -4px var(--light);
+}
+
+.search input[type='text'] {
+    width: calc(100% - 48px);
+    padding: 8px;
+}
+.search input[type='submit'] {
+    width: 48px;
+    cursor: pointer;
+    background: url('/app/resources/assets/images/loupe.svg') white center center no-repeat;
+    background-size: 20px 20px;
+    display: block;
+}
+.search img {
+    width: 16px;
 }
 .logo img {
     display: block;

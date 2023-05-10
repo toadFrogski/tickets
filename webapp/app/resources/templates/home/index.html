@@ -9,12 +9,14 @@
 {% endblock %}
 
 {% block content %}
-    <div class="movie_list">
+<div class="movie_list">
+{% if (count($movies) != 0): %}
     {% foreach($movies as $movie): %}
         <div class="movie_card">
+            <a class="movie_link" href="/movie?id={{$movie[0]}}">
                 <img loading="lazy" class="movie_poster" src="{{ $movie['asset_url'] }}" alt="">
 
-            <a class="movie_link" href="/movie?id={{$movie[0]}}">
+
                 <div class="details">
                     <div class="movie_name">{{ $movie['name'] }}</div>
                     <div class="movie_producer">Режисер: {{ $movie['producer'] }}</div>
@@ -25,5 +27,8 @@
             </a>
         </div>
     {% endforeach; %}
-    </div>
+{% else: %}
+<h1 style="margin-inline: auto; color: var(--dark)">К сожения, ничего не удалось найти</h1>
+{% endif; %}
+</div>
 {% endblock %}
