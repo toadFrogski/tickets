@@ -1,4 +1,37 @@
 {% extends 'base.html' %}
+
+{% block title %}
+<title>Покупка билетов</title>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="../app/resources/assets/css/ticket.css">
+{% endblock %}
+
 {% block content %}
-    <p>Ticket page</p>
+<form action="" method="post">
+    <h2>Выберите место</h2>
+    <h3>Дата {{$session['session_time']}}</h3>
+        <div class="table">
+        {% foreach($session['session_schema'] as $row_index => $row): %}
+        <div class="row">
+            {{$row_index}}
+            {% foreach($row as $coll_index=>$coll): %}
+            {% if($coll): %}
+            <label for="{{$row_index}};{{$coll_index}}">
+                <input type="checkbox" name='place[]' id="{{$row_index}};{{$coll_index}}" value="{{$row_index}};{{$coll_index}}">
+                <span></span>
+            </label>
+            {% else: %}
+            <label for="{{$row_index}};{{$coll_index}}">
+                <input disabled type="checkbox" name='place[]' id="{{$row_index}};{{$coll_index}}" value="{{$row_index}};{{$coll_index}}">
+                <span></span>
+            </label>
+            {% endif; %}
+            {% endforeach; %}
+        </div>
+        {% endforeach; %}
+    </div>
+    <input type="submit" value="Купить билеты!">
+</form>
 {% endblock %}

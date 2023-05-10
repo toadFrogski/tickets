@@ -1,5 +1,63 @@
 {% extends 'base.html' %}
+{% block title %}
+<title>{{$movie['movie_name']}}</title>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="../app/resources/assets/css/movie.css">
+{% endblock %}
+
 {% block content %}
-{% var_dump($movie) %}
-{% var_dump($sessions) %}
+<div class="movie">
+    <h1>{{ $movie['movie_name'] }}</h1>
+    <div class="row">
+        <div class="movie_poster">
+            <img loading="lazy" src="{{ $movie['assets'][0][0] }}" alt="">
+        </div>
+        <div class="movie_details">
+            <div class="details_wrapper">
+                <p class="fs24 fw700">Режисер</p>
+                <p>{{ $movie['movie_producer'] }}</p>
+                <p class="fs24 fw700">Описание</p>
+                <p>{{ $movie['movie_description'] }}</p>
+                <p class="fs24 fw700">Продолжительность</p>
+                <p>{{ $movie['movie_duration'] }} минут</p>
+                <p class="fs24 fw700">Дата премьеры</p>
+                <p>{{ $movie['movie_year'] }}</p>
+                <p class="fs24 fw700">Цена</p>
+                <p>{{ $movie['movie_price'] }} MDL</p>
+                <p class="fs24 fw700">Жанры</p>
+                <div class="genres">
+                    {% foreach($movie['genres'] as $genre): %}
+                    <p>{{$genre}}</p>
+                    {% endforeach; %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="trailer">
+    <h1 class="mt-32">Посмотрите трейлер прямо сейчас</h1>
+    <iframe loading="lazy" width="650" height="365" src="https://www.youtube.com/embed/{{ $movie['assets'][1][0] }}"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+    </iframe>
+</div>
+<div class="session_block">
+    {% foreach($sessions as $cinema=>$sessions): %}
+        <h2 class="mt-32">Кинотеатр: {{$cinema}}</h2>
+        <div class="mt-32 sessions_list">
+            {% foreach($sessions as $session): %}
+            <a class="session" data-cinema="{{$session[2]}}" href="/checkout?session={{$session[0]}}">
+                {{$session[1]}}
+            </a>
+            {% endforeach; %}
+        </div>
+    </div>
+{% endforeach; %}
+<script>
+    let cinemaButtons = document.querySelectorAll('button.cinema_button')
+    let sessions = document.querySelectorAll('a.session')
+</script>
 {% endblock %}
