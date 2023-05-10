@@ -1,4 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
-    <p>Admin page</p>
+<style>
+    .movie-block {
+        display: flex;
+        max-height: 350px;
+        margin-bottom: 20px;
+    }
+
+    .movie-list-wrapper {
+        margin: 0 auto;
+        width: 75%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    .movie-block img {
+        height: 350px;
+        width: 250px;
+    }
+    .movie-block a {
+        display: block;
+    }
+</style>
+{% include 'admin/header.html' %}
+<p>Admin page</p>
+<div class="movie-list-wrapper">
+    {% foreach($movies as $movie):%}
+    <div class="movie-block">
+        <a href="admin/movie/edit?movie_id={{$movie['id']}}">
+            <img src="{{$movie['asset_url']}}" alt="poster">
+        </a>
+    </div>
+    {% endforeach; %}
+</div>
 {% endblock %}
