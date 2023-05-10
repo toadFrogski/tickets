@@ -7,7 +7,8 @@ use Core\Template\Template;
 
 class ADminController
 {
-    public function indexAction(Request $request) {
+    public function indexAction(Request $request)
+    {
         return Template::view('admin/index.html');
     }
 }

@@ -10,7 +10,11 @@ class MovieRepository
     public static function getAllMovies()
     {
         $dbm = DatabaseManager::getInstance();
-        $movies = $dbm->connection->query("SELECT * FROM movie")->fetch_all();
+        $movies = $dbm->connection->query("
+            SELECT m.*, ma.movie_asset_url
+            FROM movie m
+            INNER JOIN movie_asset ma on ma.movie_id=m.movie_id 
+            WHERE ma.movie_asset_type='poster'")->fetch_all();
         $movies = array_map(function ($movie) {
             $movie['name'] = $movie[1];
             $movie['price'] = $movie[2];
@@ -18,6 +22,7 @@ class MovieRepository
             $movie['producer'] = $movie[4];
             $movie['date'] = $movie[5];
             $movie['duration'] = $movie[6];
+            $movie['asset_url'] = $movie[7];
             return $movie;
         }, $movies);
         return $movies;
@@ -27,9 +32,10 @@ class MovieRepository
     {
         $dbm = DatabaseManager::getInstance();
         $movies = $dbm->connection->query("
-            SELECT DISTINCT m.* FROM movie m
+            SELECT DISTINCT m.*, ma.movie_asset_url FROM movie m
+            INNER JOIN movie_asset ma ON ma.movie_id=m.movie_id
             INNER JOIN session s ON m.movie_id=s.movie_id
-            WHERE s.session_time>'" . date('Y-m-d H:i:s') . "}'")->fetch_all();
+            WHERE ma.movie_asset_type = 'poster' AND s.session_time>'" . date('Y-m-d H:i:s') . "}'")->fetch_all();
         $movies = array_map(function ($movie) {
             $movie['name'] = $movie[1];
             $movie['price'] = $movie[2];
@@ -37,6 +43,7 @@ class MovieRepository
             $movie['producer'] = $movie[4];
             $movie['date'] = $movie[5];
             $movie['duration'] = $movie[6];
+            $movie['asset_url'] = $movie[7];
             return $movie;
         }, $movies);
         return $movies;
@@ -46,15 +53,19 @@ class MovieRepository
     {
         $dbm = DatabaseManager::getInstance();
         $cinema = $dbm->connection->query("
-            SELECT m.*, group_concat(g.genre_name) as genres, ma.movie_asset_url
+            SELECT m.*, group_concat(g.genre_name) as genres
             FROM movie m INNER JOIN movie_genre mg ON mg.movie_id=m.movie_id
             INNER JOIN genre g ON g.genre_id=mg.genre_id
-            INNER JOIN movie_asset ma ON ma.movie_id=m.movie_id
             WHERE m.movie_id='{$id}'
             GROUP BY m.movie_id")
         ->fetch_assoc();
 
         $cinema['genres'] = explode(',', $cinema['genres']);
+        $cinema['assets'] = $dbm->connection->query("
+            SELECT movie_asset_url, movie_asset_type
+            FROM movie_asset
+            WHERE movie_id='{$id}'")->fetch_all();
+
 
         return $cinema;
     }
