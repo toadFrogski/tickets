@@ -61,6 +61,11 @@ create table ticket(
     foreign key (session_id) references session(session_id)
 );
 
+create table manager(
+    manager_id int not null AUTO_INCREMENT primary key,
+    manager_email varchar(255) not null,
+    manager_password varchar(255) not null
+);
 
 insert into cinema(cinema_name, cinema_address) values ('Cineplex Loteanu', 'Bulevardul Ștefan cel Mare și Sfînt 103');
 insert into cinema(cinema_name, cinema_address) values ('Cineplex', 'Arborilor, 21');
@@ -159,6 +164,6 @@ insert into movie_asset (movie_id, movie_asset_url, movie_asset_type) values
     ((select movie_id from movie where movie_name='The Super Mario Bros. Movie'), 'TnGl01FkMMo', 'youtube_trailer'),
     ((select movie_id from movie where movie_name='Evil Dead Rise'), 'BqQNO7BzN08', 'youtube_trailer'),
     ((select movie_id from movie where movie_name='Les trois mousquetaires: D`Artagnan'), 'KqCiVRbwMvQ', 'youtube_trailer'),
-    ((select movie_id from movie where movie_name='John Wick: Chapter 4'), 'yjRHZEUamCc', 'youtube_trailer')
+    ((select movie_id from movie where movie_name='John Wick: Chapter 4'), 'yjRHZEUamCc', 'youtube_trailer');
 
-
+insert into manager(manager_email, manager_password) values('tickets@manager', 'f4ac4122ee48c213eec816f4d7944ea6');

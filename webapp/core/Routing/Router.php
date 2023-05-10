@@ -39,24 +39,21 @@ class Router
         try {
             $request = new Request($uri);
             $route = $this->matchUrl($request->getPath(), $method);
+            if (empty($route)) {
+                header('Location: /');
+            }
             [$handlerController, $handlerMethod] = $route->getHandler();
             $controller = new $handlerController;
             echo $controller->{$handlerMethod}($request);
         } catch (\Exception $e) {
-            header("HTTP/1.0 404 Not Found");
+            header("Location: /");
         }
     }
 
-    public function redirect(string $name, Request $request)
+    public function redirect(string $name)
     {
-        try {
-            $route = $this->matchName($name);
-            [$handlerController, $handlerMethod] = $route->getHandler();
-            $controller = new $handlerController;
-            echo $controller->{$handlerMethod}($request);
-        } catch (\Exception $e) {
-            header("HTTP/1.0 404 Not Found");
-        }
+        $route = $this->matchName($name);
+        header("Location:" . $route->getPath());
     }
 
     private function matchUrl(string $path, string $method)
