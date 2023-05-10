@@ -53,7 +53,8 @@ class Router
     public function redirect(string $name)
     {
         $route = $this->matchName($name);
-        header("Location:" . $route->getPath());
+        $route = (empty($route)) ? $name : $route->getPath();
+        header("Location:" . $route);
     }
 
     private function matchUrl(string $path, string $method)

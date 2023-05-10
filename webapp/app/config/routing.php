@@ -17,8 +17,13 @@ $router = Router::getInstance([
 ]);
 
 if (isset($_SESSION['admin'])) {
-    $router->add(new Route('login', '/admin/logout', [AdminController::class, 'logoutAction'], 'GET'));
     $router->add(new Route('admin', '/admin', [AdminController::class, 'indexAction'], 'GET'));
+    $router->add(new Route('logout', '/admin/logout', [AdminController::class, 'logoutAction'], 'GET'));
+    $router->add(new Route('admin_movie_new', '/admin/movie/new', [AdminController::class, 'movieNewAction'], 'GET'));
+    $router->add(new Route('admin_movie_new_post', '/admin/movie/new', [AdminController::class, 'movieNewPostAction'], 'POST'));
+    $router->add(new Route('admin_movie_edit', '/admin/movie/edit', [AdminController::class, 'movieEditAction'], 'GET'));
+    $router->add(new Route('admin_movie_edit_post', '/admin/movie/edit', [AdminController::class, 'movieEditPostAction'], 'POST'));
+    $router->add(new Route('admin_movie_delete', '/admin/movie/delete', [AdminController::class, 'movieDeleteAction'], 'GET'));
 }
 
 $router->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);

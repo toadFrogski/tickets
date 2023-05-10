@@ -16,6 +16,7 @@ class MovieRepository
             INNER JOIN movie_asset ma on ma.movie_id=m.movie_id 
             WHERE ma.movie_asset_type='poster'")->fetch_all();
         $movies = array_map(function ($movie) {
+            $movie['id'] = $movie[0];
             $movie['name'] = $movie[1];
             $movie['price'] = $movie[2];
             $movie['description'] = $movie[3];
@@ -37,6 +38,7 @@ class MovieRepository
             INNER JOIN session s ON m.movie_id=s.movie_id
             WHERE ma.movie_asset_type = 'poster' AND s.session_time>'" . date('Y-m-d H:i:s') . "}'")->fetch_all();
         $movies = array_map(function ($movie) {
+            $movie['id'] = $movie[0];
             $movie['name'] = $movie[1];
             $movie['price'] = $movie[2];
             $movie['description'] = $movie[3];
@@ -68,5 +70,10 @@ class MovieRepository
 
 
         return $cinema;
+    }
+
+    public static function getAllGenres() {
+        $dbm = DatabaseManager::getInstance();
+        return $dbm->connection->query("SELECT * from genre")->fetch_all();
     }
 }
