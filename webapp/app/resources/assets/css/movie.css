@@ -14,14 +14,14 @@ h1 {
     flex-direction: row;
 }
 .movie_poster {
-    width: 50%;
+    width: calc(50% - 9px);
 }
 .movie_poster img {
     display: block;
     width: 100%;
 }
 .movie_details {
-    width: 50%;
+    width: calc(50% - 9px);
 }
 .details_wrapper {
     width: 80%;
