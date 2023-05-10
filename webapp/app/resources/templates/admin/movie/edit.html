@@ -6,13 +6,13 @@
 
 {% block content %}
 <form action="" method="post" class="form-control w-50 me-2">
-    <input class="form-control mb-2" type="hidden" name="movie_id", value="{{$movie['movie_id']}}">
-    <input class="form-control mb-2" type="text" name="movie_name" placeholder="{{$movie['movie_name']}}">
-    <textarea class="form-control mb-2" name="movie_description" id="" cols="30" rows="10" placeholder="{{$movie['movie_description']}}"></textarea>
-    <input class="form-control mb-2" type="number" name="movie_price" placeholder="{{$movie['movie_price']}}">
-    <input class="form-control mb-2" type="text" name="movie_producer" placeholder="{{$movie['movie_producer']}}">
-    <input class="form-control mb-2" type="text" name="movie_year" placeholder="{{$movie['movie_year']}}">
-    <input class="form-control mb-2" type="number" name="movie_duration" placeholder="{{$movie['movie_duration']}}">
+    <input class="form-control mb-2" type="hidden" name="movie_id" value="{{$movie['movie_id']}}">
+    <input class="form-control mb-2" type="text" name="movie_name" value="{{$movie['movie_name']}}">
+    <textarea class="form-control mb-2" name="movie_description" id="" cols="30" rows="10">{{$movie['movie_description']}}</textarea>
+    <input class="form-control mb-2" type="number" name="movie_price" value="{{$movie['movie_price']}}">
+    <input class="form-control mb-2" type="text" name="movie_producer" value="{{$movie['movie_producer']}}">
+    <input class="form-control mb-2" type="text" name="movie_year" value="{{$movie['movie_year']}}">
+    <input class="form-control mb-2" type="number" name="movie_duration" value="{{$movie['movie_duration']}}">
     <div class="d-flex flex-wrap mb-2">
         {% foreach($genres as $genre):%}
         <span class="me-3">
@@ -23,11 +23,12 @@
     </div>
     <div>
         <label for="trailer" class="form-label">Trailer url</label>
-        <input id='trailer' class="form-control mb-2" type="text" placeholder="{{$movie['assets'][1][0]}}">
+        <input id='trailer' class="form-control mb-2" name="trailer" type="text" value="{{$movie['assets'][1][0]}}">
     </div>
     <div class="mb-3">
         <label for="formFile" class="form-label">Poster</label>
         <input class="form-control" type="file" id="formFile">
     </div>
+    <input type="submit" class="form-control">
 </form>
 {% endblock %}

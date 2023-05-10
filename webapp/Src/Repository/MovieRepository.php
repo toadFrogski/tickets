@@ -76,4 +76,6 @@ class MovieRepository
         $dbm = DatabaseManager::getInstance();
         return $dbm->connection->query("SELECT * from genre")->fetch_all();
     }
+
+    public static function updateMovie()
 }

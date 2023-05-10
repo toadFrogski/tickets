@@ -69,6 +69,17 @@ class AdminController
 
     public function movieEditPostAction(Request $request)
     {
+        $params = $request->getParameters();
+        $movie_id = $params['movie_id'];
+        $movie_name = $params['movie_name'];
+        $movie_description = $params['movie_description'];
+        $movie_price = $params['movie_price'];
+        $movie_producer = $params['movie_producer'];
+        $movie_year = $params['movie_year'];
+        $movie_duration = $params['movie_duration'];
+        $genres = $params['genres'];
+        $trailer = $params['trailer'];
+
     }
 
     public function movieDeleteAction(Request $request)
