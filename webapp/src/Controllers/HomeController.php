@@ -11,6 +11,6 @@ class HomeController
 
     public function indexAction(Request $request)
     {
-        return Template::view('home/index.html');
+        return Template::view('home/index.html', ['movies' => MovieRepository::getAllAvailableMovies()]);
     }
 }

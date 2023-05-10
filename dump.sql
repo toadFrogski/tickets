@@ -31,7 +31,8 @@ create table movie(
 create table movie_asset(
     movie_asset_id int not null AUTO_INCREMENT primary key,
     movie_id int not null,
-    movie_asset_url varchar(255) not null
+    movie_asset_url varchar(255) not null,
+    movie_asset_type varchar(20) not null
 );
 
 create table movie_genre(
@@ -133,12 +134,31 @@ insert into session(movie_id, cinemahall_id, session_time, session_schema) value
     ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), (select cinemahall_id from cinemahall limit 1), '2023-07-06 12:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='1')),
     ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), (select cinemahall_id from cinemahall limit 1), '2023-07-06 15:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='2')),
     ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), (select cinemahall_id from cinemahall limit 1), '2023-07-06 18:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='3')),
-    ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), (select cinemahall_id from cinemahall limit 1), '2023-07-06 21:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='1'));
+    ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), (select cinemahall_id from cinemahall limit 1), '2023-07-06 21:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='1')),
+    ((select movie_id from movie where movie_name='The Super Mario Bros. Movie'), (select cinemahall_id from cinemahall limit 1), '2023-07-07 12:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='2')),
+    ((select movie_id from movie where movie_name='The Super Mario Bros. Movie'), (select cinemahall_id from cinemahall limit 1), '2023-07-07 15:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='3')),
+    ((select movie_id from movie where movie_name='The Super Mario Bros. Movie'), (select cinemahall_id from cinemahall limit 1), '2023-07-07 18:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='1')),
+    ((select movie_id from movie where movie_name='The Super Mario Bros. Movie'), (select cinemahall_id from cinemahall limit 1), '2023-07-07 21:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='2')),
+    ((select movie_id from movie where movie_name='Evil Dead Rise'), (select cinemahall_id from cinemahall limit 1), '2023-07-08 12:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='3')),
+    ((select movie_id from movie where movie_name='Evil Dead Rise'), (select cinemahall_id from cinemahall limit 1), '2023-07-08 15:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='1')),
+    ((select movie_id from movie where movie_name='Evil Dead Rise'), (select cinemahall_id from cinemahall limit 1), '2023-07-08 18:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='2')),
+    ((select movie_id from movie where movie_name='Evil Dead Rise'), (select cinemahall_id from cinemahall limit 1), '2023-07-08 21:00:00', (select cinemahall_schema from cinemahall where cinemahall_id='3'));
 
 
-insert into movie_asset (movie_id, movie_asset_url) values
-    ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), 'media/1/FozSgaCaEAIHR6z.jpg'),
-    ((select movie_id from movie where movie_name='The Super Mario Bros. Movie'), 'media/2/The-Super-Mario-Bros.-Movie-poster.jpg'),
-    ((select movie_id from movie where movie_name='Evil Dead Rise'), 'media/3/edr.jpg'),
-    ((select movie_id from movie where movie_name='Les trois mousquetaires: D`Artagnan'), 'media/4/4417568.jpg'),
-    ((select movie_id from movie where movie_name='John Wick: Chapter 4'), 'media/5/asdasd.jpg')
+
+
+insert into movie_asset (movie_id, movie_asset_url, movie_asset_type) values
+    ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), 'media/1/FozSgaCaEAIHR6z.jpg', 'poster'),
+    ((select movie_id from movie where movie_name='The Super Mario Bros. Movie'), 'media/2/The-Super-Mario-Bros.-Movie-poster.jpg', 'poster'),
+    ((select movie_id from movie where movie_name='Evil Dead Rise'), 'media/3/edr.jpg', 'poster'),
+    ((select movie_id from movie where movie_name='Les trois mousquetaires: D`Artagnan'), 'media/4/4417568.jpg', 'poster'),
+    ((select movie_id from movie where movie_name='John Wick: Chapter 4'), 'media/5/asdasd.jpg', 'poster');
+
+insert into movie_asset (movie_id, movie_asset_url, movie_asset_type) values
+    ((select movie_id from movie where movie_name='Guardians of the Galaxy vol.3'), 'u3V5KDHRQvk', 'youtube_trailer'),
+    ((select movie_id from movie where movie_name='The Super Mario Bros. Movie'), 'TnGl01FkMMo', 'youtube_trailer'),
+    ((select movie_id from movie where movie_name='Evil Dead Rise'), 'BqQNO7BzN08', 'youtube_trailer'),
+    ((select movie_id from movie where movie_name='Les trois mousquetaires: D`Artagnan'), 'KqCiVRbwMvQ', 'youtube_trailer'),
+    ((select movie_id from movie where movie_name='John Wick: Chapter 4'), 'yjRHZEUamCc', 'youtube_trailer')
+
+
