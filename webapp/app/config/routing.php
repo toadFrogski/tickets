@@ -14,6 +14,7 @@ $router = Router::getInstance([
     new Route('movie', '/movie', [MovieController::class, 'indexAction'], 'GET'),
     new Route('cinemas', '/cinemas', [CinemaController::class, 'indexAction'], 'GET'),
     new Route('ticket', '/checkout', [TicketController::class, 'indexAction'], 'GET'),
+    new Route('ticket_post', '/checkout', [TicketController::class, 'buyAction'], 'POST'),
     new Route('login', '/admin/login', [AdminController::class, 'loginAction'], 'GET'),
     new Route('login_post', '/admin/login', [AdminController::class, 'loginPostAction'], 'POST')
 ]);

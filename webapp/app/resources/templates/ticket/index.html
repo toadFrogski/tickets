@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-<form action="" method="post">
+<form action="/checkout" method="post">
     <h2>Выберите место</h2>
     <h3>Дата {{$session['session_time']}}</h3>
         <div class="table">
@@ -32,6 +32,7 @@
         </div>
         {% endforeach; %}
     </div>
+    <input type="hidden" name='session_id' value="{{$session['session_id']}}">
     <input type="submit" value="Купить билеты!">
 </form>
 {% endblock %}

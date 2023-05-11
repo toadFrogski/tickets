@@ -77,7 +77,6 @@ class MovieRepository
         return $dbm->connection->query("SELECT * from genre")->fetch_all();
     }
 
-//    public static function updateMovie()
     public static function getSimilarByName(string $name)
     {
         $dbm = DatabaseManager::getInstance();
@@ -98,5 +97,40 @@ class MovieRepository
             return $movie;
         }, $movies);
         return $movies;
+  
+    public static function updateMovie($data) {
+        $dbm = DatabaseManager::getInstance();
+        $dbm->connection->query("UPDATE movie
+            SET movie_name='{$data['movie_name']}',
+            movie_price='{$data['movie_price']}',
+            movie_description='{$data['movie_description']}',
+            movie_producer='{$data['movie_producer']}',
+            movie_year='{$data['movie_year']}',
+            movie_duration='{$data['movie_duration']}'
+            WHERE movie_id='{$data['movie_id']}'");
+
+        $dbm->connection->query("DELETE from movie_genre where movie_id='{$data['movie_id']}'");
+        $query = "INSERT INTO movie_genre(movie_id, genre_id) values";
+        foreach ($data['genres'] as $genre) {
+            $query .= "('{$data['movie_id']}', '{$genre}'),";
+        }
+        $query = rtrim($query, ',');
+        $dbm->connection->query($query);
+
+        $dbm->connection->query("UPDATE movie_asset SET movie_asset_url='{$data['trailer']}'
+            WHERE movie_id='{$data['movie_id']}' AND movie_asset_type='youtube_trailer'");
+    }
+
+    public static function newMovie($data) {
+        $dbm = DatabaseManager::getInstance();
+        $dbm->connection->query("INSERT into movie(movie_name, movie_price, movie_description, movie_producer, movie_year, movie_duration)
+            values ('{$data['movie_name']}', '{$data['movie_price']}', '{$data['movie_description']}', '{$data['movie_producer']}', '{$data['movie_year']}', '{$data['movie_duration']}')");
+        $dbm->connection->query("INSERT into movie_asset (movie_id, movie_asset_url, movie_asset_type) 
+            values ('{$data['movie_id']}', '{$data['trailer']}', 'youtube_trailer')");
+    }
+
+    public static function deleteMovie($id) {
+        $dbm = DatabaseManager::getInstance();
+        $dbm->connection->query("DELETE from movie where movie_id='{$id}'");
     }
 }
