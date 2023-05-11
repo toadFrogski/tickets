@@ -25,4 +25,10 @@ class ManagerRepository
         $dbm = DatabaseManager::getInstance();
         return $dbm->connection->query("update manager set manager_email='{$email}', manager_password='{$password}' where manager_id = '{$id}'");
     }
+
+    public static function deleteManagerById(mixed $id)
+    {
+        $dbm = DatabaseManager::getInstance();
+        return $dbm->connection->query("delete from manager where manager_id = '{$id}'");
+    }
 }

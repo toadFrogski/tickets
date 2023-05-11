@@ -58,6 +58,12 @@ class AdminController
         }
         return false;
     }
+    public function deleteManagerAction(Request $request) {
+        $id = $request->getParameters()['id'];
+        ManagerRepository::deleteManagerById($id);
+        Router::getInstance()->redirect('/admin');
+
+    }
     public function editManagerPostAction(Request $request)
     {
         $id = $request->getParameters()['id'];
