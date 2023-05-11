@@ -7,34 +7,83 @@
 {% block content %}
 <style>
     .movie-block {
+        position: relative;
+        padding: 8px;
         display: flex;
-        max-height: 350px;
-        margin-bottom: 20px;
-    }
+        flex-direction: column;
+        align-items: center;
+        flex: 0 0 calc(100% / 3);
 
-    .movie-list-wrapper {
-        margin: 0 auto;
-        width: 75%;
+    }
+    h1 {
+        text-align: center;
+        color: var(--darker);
+    }
+    .movie {
+        border-left: 3px dotted var(--darker);
+        margin-inline: auto;
+        width: 60%;
+    }
+    .manager-list-wrapper {
+        margin-inline: auto;
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        /*justify-content: center;*/
+        align-items: center;
+    }
+    .manager-list-wrapper div {
+        width: 70%;
         display: flex;
         justify-content: space-between;
+        color: var(--darker);
+        padding: 8px;
+        font-size: 18px;
+        font-weight: 700;
+    }
+    .movie-list-wrapper {
+        display: flex;
+        flex-direction: row;
         flex-wrap: wrap;
+        align-items: center;
+        padding: 32px;
+        justify-content: flex-start;
     }
     .movie-block img {
-        height: 350px;
-        width: 250px;
+        display: block;
+        width: 270px;
+        height: 400px;
+        box-shadow: 0 4px 10px 0 var(--dark);
     }
     .movie-block a {
         display: block;
     }
+    .wrapper {
+        display: flex;
+
+    }
 </style>
-<div class="movie-list-wrapper">
-    {% foreach($movies as $movie):%}
-    <div class="movie-block">
-        <a href="admin/movie/edit?movie_id={{$movie['id']}}">
-            <img src="{{$movie['asset_url']}}" alt="poster">
-        </a>
+<div class="wrapper">
+    <div class="manager-list-wrapper">
+        <h1>Менеджеры</h1>
+        {% foreach($managers as $manager):%}
+        <div>{{$manager[0]}} <a class="btn btn-success" href="/admin/edit?id={{$manager[2]}}">изменить</a></div>
+        {% endforeach %}
+        <a class="w-25 mb-5 btn btn-success mt-5 mx-auto d-block" href="/admin/new">Добавить менеджера</a>
     </div>
-    {% endforeach; %}
-    <a class="w-25 mx-auto btn btn-success mt-5" href="/admin/movie/new">Add movie</a>
+    <div class="movie">
+        <h1>Фильмы</h1>
+        <div class="movie-list-wrapper">
+            {% foreach($movies as $movie):%}
+            <div class="movie-block">
+                <a href="admin/movie/edit?movie_id={{$movie['id']}}">
+                    <img src="{{$movie['asset_url']}}" alt="poster">
+                </a>
+            </div>
+            {% endforeach; %}
+        </div>
+        <a class="w-25 mb-5 btn btn-success mt-5 mx-auto d-block" href="/admin/movie/new">Add movie</a>
+    </div>
+
 </div>
 {% endblock %}

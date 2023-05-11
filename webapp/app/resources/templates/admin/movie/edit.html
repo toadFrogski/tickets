@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="d-flex">
-    <form action="" method="post" class="form-control w-50 me-2">
+    <form action="" method="post" class="form-control w-50 mx-auto">
         <input class="form-control mb-2" type="hidden" name="movie_id" value="{{$movie['movie_id']}}">
         <input class="form-control mb-2" type="text" name="movie_name" value="{{$movie['movie_name']}}">
         <textarea class="form-control mb-2" name="movie_description" id="" cols="30" rows="10">{{$movie['movie_description']}}</textarea>
@@ -30,8 +30,8 @@
             <label for="formFile" class="form-label">Poster</label>
             <input class="form-control" type="file" id="formFile">
     </div>
-    <input type="submit" class="form-control">
-</form>
-<a href="/admin/movie/delete?movie_id={{ $movie['movie_id'] }}" class="btn btn-danger h-25">Delete</a>
+    <input type="submit" value="Принять изменения" class="form-control">
+    <a href="/admin/movie/delete?movie_id={{ $movie['movie_id'] }}" class="mt-1 d-block btn btn-danger form-control">Удалить фильм</a>
+    </form>
 </div>
 {% endblock %}

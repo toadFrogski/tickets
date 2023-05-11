@@ -12,8 +12,65 @@ class AdminController
 {
     public function indexAction(Request $request)
     {
+        $managers = ManagerRepository::getAllManagers();
         $movies = MovieRepository::getAllMovies();
-        return Template::view('admin/index.html', ['movies' => $movies]);
+        return Template::view('admin/index.html', ['movies' => $movies, 'managers' => $managers]);
+    }
+
+    public function newManagerAction(Request $request)
+    {
+        return Template::view('admin/manager/new.html');
+    }
+
+    public function newManagerPostAction(Request $request)
+    {
+        if ($this->isValidEmailPassword($request->getParameters())) {
+            $email = $request->getParameters()['email'];
+            $password = md5($request->getParameters()['password']);
+            if (!$this->isManagerExist($email, $password)) {
+                ManagerRepository::newManager($email, $password);
+                Router::getInstance()->redirect('/admin');
+            }
+            $err = 'Пользователь с таким email\'ом уже существует!';
+        } else {
+            $err = 'Все поля должны быть заполнены!';
+        }
+        return Template::view('admin/manager/new.html', ['error' => $err]);
+    }
+    public function editManagerAction(Request $request) {
+        $manager = ManagerRepository::getManagerById($request->getParameters()['id']);
+        return Template::view('admin/manager/edit.html', ['manager'=>$manager]);
+    }
+
+    private function isValidEmailPassword($data) {
+        foreach (['email', 'password'] as $requirement) {
+            $data[$requirement] = stripcslashes(trim($data[$requirement]));
+            if (empty($data[$requirement])) return false;
+        }
+        return true;
+    }
+    private function isManagerExist($email, $password) {
+        $managers = ManagerRepository::getAllManagers();
+        foreach ($managers as $manager) {
+            if ($email == $manager[0]) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public function editManagerPostAction(Request $request)
+    {
+        $id = $request->getParameters()['id'];
+        $manager = ManagerRepository::getManagerById($id);
+        if ($this->isValidEmailPassword($request->getParameters())) {
+            $email = $request->getParameters()['email'];
+            $password = md5($request->getParameters()['password']);
+            ManagerRepository::updateManager($id, $email, $password);
+            Router::getInstance()->redirect('/admin');
+        } else {
+            $err = 'Все поля должны быть заполнены!';
+        }
+        return Template::view('admin/manager/edit.html', ['manager'=> $manager,'error' => $err]);
     }
 
     public function loginAction(Request $request)
@@ -71,7 +128,7 @@ class AdminController
         $id = $request->getParameters()['movie_id'];
         $movie = MovieRepository::getMovieById($id);
         $genres = MovieRepository::getAllGenres();
-        return Template::view('admin/movie/edit.html', ['movie' =>$movie , 'genres' => $genres]);
+        return Template::view('admin/movie/edit.html', ['movie' => $movie, 'genres' => $genres]);
     }
 
     public function movieEditPostAction(Request $request)
@@ -91,7 +148,8 @@ class AdminController
         }
     }
 
-    private function validateMovie($data) {
+    private function validateMovie($data)
+    {
         return $data;
     }
 

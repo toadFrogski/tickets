@@ -46,7 +46,7 @@ input[type='checkbox']:checked ~ span {
 input[type='checkbox']:disabled ~ span {
     background-color: red;
 }
-input[type='submit'] {
+.ticket input[type='submit'] {
     display: block;
     padding: 16px 32px;
     font-size: 20px;

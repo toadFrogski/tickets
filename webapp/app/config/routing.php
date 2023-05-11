@@ -21,6 +21,10 @@ $router = Router::getInstance([
 
 if (isset($_SESSION['admin'])) {
     $router->add(new Route('admin', '/admin', [AdminController::class, 'indexAction'], 'GET'));
+    $router->add(new Route('manager_edit', '/admin/edit', [AdminController::class, 'editManagerAction'], 'GET'));
+    $router->add(new Route('manager_edit_post', '/admin/edit', [AdminController::class, 'editManagerPostAction'], 'POST'));
+    $router->add(new Route('manager_new', '/admin/new', [AdminController::class, 'newManagerAction'], 'GET'));
+    $router->add(new Route('manager_new_post', '/admin/new', [AdminController::class, 'newManagerPostAction'], 'POST'));
     $router->add(new Route('logout', '/admin/logout', [AdminController::class, 'logoutAction'], 'GET'));
     $router->add(new Route('admin_movie_new', '/admin/movie/new', [AdminController::class, 'movieNewAction'], 'GET'));
     $router->add(new Route('admin_movie_new_post', '/admin/movie/new', [AdminController::class, 'movieNewPostAction'], 'POST'));

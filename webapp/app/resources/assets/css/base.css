@@ -36,11 +36,14 @@ header nav ul {
     align-items: center;
 }
 header nav ul a {
+    color: var(--dark);
     padding: 8px 24px;
     border-radius: 16px;
     transition: box-shadow .4s ease-in-out;
+    text-decoration: none;
 }
 header nav ul a:hover {
+    color: var(--dark);
     box-shadow: 0 4px 10px -4px var(--light);
     transition: box-shadow .4s ease-in-out;
 }
@@ -55,6 +58,7 @@ header nav ul a:hover {
 
 .search input[type='text'] {
     width: calc(100% - 48px);
+    font-size: 14px;
     padding: 8px;
 }
 .search input[type='submit'] {
