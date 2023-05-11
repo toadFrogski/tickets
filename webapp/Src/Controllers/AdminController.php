@@ -53,10 +53,17 @@ class AdminController
 
     public function movieNewAction(Request $request)
     {
+        $genres = MovieRepository::getAllGenres();
+        return Template::view('admin/movie/new.html', ['genres' => $genres]);
     }
 
     public function movieNewPostAction(Request $request)
     {
+        $params = $request->getParameters();
+        if ($params = $this->validateMovie($params)) {
+            MovieRepository::newMovie($params);
+            Router::getInstance()->redirect('admin');
+        }
     }
 
     public function movieEditAction(Request $request)
@@ -70,20 +77,22 @@ class AdminController
     public function movieEditPostAction(Request $request)
     {
         $params = $request->getParameters();
-        $movie_id = $params['movie_id'];
-        $movie_name = $params['movie_name'];
-        $movie_description = $params['movie_description'];
-        $movie_price = $params['movie_price'];
-        $movie_producer = $params['movie_producer'];
-        $movie_year = $params['movie_year'];
-        $movie_duration = $params['movie_duration'];
-        $genres = $params['genres'];
-        $trailer = $params['trailer'];
-
+        if ($params = $this->validateMovie($params)) {
+            MovieRepository::updateMovie($params);
+            Router::getInstance()->redirect('admin');
+        }
     }
 
     public function movieDeleteAction(Request $request)
     {
+        if (isset($request->getParameters()['movie_id'])) {
+            MovieRepository::deleteMovie($request->getParameters()['movie_id']);
+            Router::getInstance()->redirect('admin');
+        }
+    }
+
+    private function validateMovie($data) {
+        return $data;
     }
 
 }

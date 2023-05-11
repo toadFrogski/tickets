@@ -32,7 +32,8 @@ create table movie_asset(
     movie_asset_id int not null AUTO_INCREMENT primary key,
     movie_id int not null,
     movie_asset_url varchar(255) not null,
-    movie_asset_type varchar(20) not null
+    movie_asset_type varchar(20) not null,
+    foreign key (movie_id) references movie(movie_id) ON DELETE CASCADE
 );
 
 create table movie_genre(
@@ -40,7 +41,7 @@ create table movie_genre(
     movie_id int not null,
     genre_id int not null,
     foreign key (genre_id) references genre(genre_id),
-    foreign key (movie_id) references movie(movie_id)
+    foreign key (movie_id) references movie(movie_id) ON DELETE CASCADE
 );
 
 create table session(
@@ -50,7 +51,7 @@ create table session(
     session_time datetime not null,
     session_schema json not null,
     foreign key (cinemahall_id) references cinemahall(cinemahall_id),
-    foreign key (movie_id) references movie(movie_id)
+    foreign key (movie_id) references movie(movie_id) ON DELETE CASCADE
 );
 
 create table ticket(
@@ -189,7 +190,7 @@ insert into movie_asset (movie_id, movie_asset_url, movie_asset_type) values
     ((select movie_id from movie where movie_name='Les trois mousquetaires: D`Artagnan'), 'KqCiVRbwMvQ', 'youtube_trailer'),
     ((select movie_id from movie where movie_name='John Wick: Chapter 4'), 'yjRHZEUamCc', 'youtube_trailer'),
     ((select movie_id from movie where movie_name='Everything Everywhere All at Once'), 'wxN1T1uxQ2g', 'youtube_trailer'),
-    ((select movie_id from movie where movie_name='Tetris'), 'BLM1naCfME', 'youtube_trailer');
+    ((select movie_id from movie where movie_name='Tetris'), '-BLM1naCfME', 'youtube_trailer');
 
 
 insert into manager(manager_email, manager_password) values('tickets@manager', 'f4ac4122ee48c213eec816f4d7944ea6');

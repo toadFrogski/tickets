@@ -8,3 +8,7 @@ $database_settings = [
     'username' => 'tickets',
     'password' => 'ticketsPwd!'
 ];
+
+if (isset($_SESSION['admin'])) {
+    ini_set('file_uploads', 'On');
+}
