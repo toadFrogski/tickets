@@ -21,9 +21,12 @@ h1 {
     width: 100%;
 }
 .movie_details {
+    position: relative;
     width: calc(50% - 9px);
 }
 .details_wrapper {
+    position: sticky;
+    top: 0;
     width: 80%;
     margin-inline: auto;
     height: fit-content;

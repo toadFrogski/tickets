@@ -77,6 +77,27 @@ class MovieRepository
         return $dbm->connection->query("SELECT * from genre")->fetch_all();
     }
 
+    public static function getSimilarByName(string $name)
+    {
+        $dbm = DatabaseManager::getInstance();
+        $movies = $dbm->connection->query("
+            SELECT DISTINCT m.*, ma.movie_asset_url FROM movie m
+            INNER JOIN movie_asset ma ON ma.movie_id=m.movie_id
+            INNER JOIN session s ON m.movie_id=s.movie_id
+            WHERE m.movie_name like '%{$name}%' AND ma.movie_asset_type = 'poster' AND s.session_time>'" . date('Y-m-d H:i:s') . "}'")->fetch_all();
+        $movies = array_map(function ($movie) {
+            $movie['id'] = $movie[0];
+            $movie['name'] = $movie[1];
+            $movie['price'] = $movie[2];
+            $movie['description'] = $movie[3];
+            $movie['producer'] = $movie[4];
+            $movie['date'] = $movie[5];
+            $movie['duration'] = $movie[6];
+            $movie['asset_url'] = $movie[7];
+            return $movie;
+        }, $movies);
+        return $movies;
+  
     public static function updateMovie($data) {
         $dbm = DatabaseManager::getInstance();
         $dbm->connection->query("UPDATE movie

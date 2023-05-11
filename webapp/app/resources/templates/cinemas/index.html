@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Кинотеатры</title>
+{% endblock %}
+
+{% block style %}
+<style>
+    .cinema {
+        padding: 32px;
+    }
+    h1 {
+        color: var(--darker);
+    }
+    h2 {
+        padding: 8px 24px;
+        color: var(--dark);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    {% foreach($cinemas as $cinema): %}
+    <div class="cinema">
+        <h1>{{$cinema[1]}}</h1>
+        <h2>Адрес: {{$cinema[2]}}</h2>
+    </div>
+{% endforeach; %}
+{% endblock %}
