@@ -97,7 +97,8 @@ class MovieRepository
             return $movie;
         }, $movies);
         return $movies;
-  
+    }
+
     public static function updateMovie($data) {
         $dbm = DatabaseManager::getInstance();
         $dbm->connection->query("UPDATE movie
